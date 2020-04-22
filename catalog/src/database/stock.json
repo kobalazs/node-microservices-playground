@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Television",
+    "amount": 10
+  },
+  {
+    "name": "Mobile phone",
+    "amount": 5
+  },
+  {
+    "name": "Notebook",
+    "amount": 2
+  }
+]
