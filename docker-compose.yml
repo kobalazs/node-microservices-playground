@@ -1,0 +1,34 @@
+version: '3.4'
+services:
+  basket:
+    restart: always
+    build:
+      context: .
+      dockerfile: basket/Dockerfile
+      target: dev
+    volumes:
+      - './basket/src:/app'
+  catalog:
+    restart: always
+    build:
+      context: .
+      dockerfile: catalog/Dockerfile
+      target: dev
+    volumes:
+      - './catalog/src:/app'
+    links:
+      - mongo
+    environment:
+      DB_URL: mongodb://mongo:27017/catalog
+  gateway:
+    restart: always
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+      target: dev
+    ports:
+      - '8080:80'
+    volumes:
+      - './gateway/src:/app'
+  mongo:
+    image: mongo

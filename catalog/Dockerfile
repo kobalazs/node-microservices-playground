@@ -1,0 +1,15 @@
+FROM node:carbon-jessie AS base
+
+  WORKDIR /app
+  COPY catalog/src/ ./
+  EXPOSE 80
+  RUN npm install -g npm
+
+FROM base AS dev
+
+  RUN npm install -g nodemon
+  CMD [ "npm", "run", "watch" ]
+
+FROM base AS prod
+
+  CMD [ "npm", "start" ]
