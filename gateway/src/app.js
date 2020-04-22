@@ -15,8 +15,11 @@ const fetch = async url => {
 }
 
 app.route('/').get((req, res) => res.json({ service: 'gateway' }));
+
 app.route('/basket').get(async (req, res) => res.json(await fetch('http://basket')));
+
 app.route('/catalog').get(async (req, res) => res.json(await fetch('http://catalog')));
+app.route('/catalog/stock').get(async (req, res) => res.json(await fetch('http://catalog/stock')));
 
 app.listen(port, function() {
   console.log('Server started on port: ' + port);
