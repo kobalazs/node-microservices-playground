@@ -9,26 +9,23 @@ app.use(express.json());
 
 app.route('/').get((req, res) => res.json({ service: 'catalog' }));
 app.route('/product').get(async (req, res) => {
-  connectDb(async (db) => {
-    const products = await db.collection('products').find({}).toArray()
-    res.json(products);
-  });
+  const db = await connectDb();
+  const products = await db.collection('products').find({}).toArray()
+  res.json(products);
 });
 app.route('/product/:id').get(async (req, res) => {
-  connectDb(async (db) => {
-    const product = await db.collection('products').findOne({ _id: ObjectId(req.params.id) });
-    res.json(product);
-  });
+  const db = await connectDb();
+  const product = await db.collection('products').findOne({ _id: ObjectId(req.params.id) });
+  res.json(product);
 });
 app.route('/product/:id').patch(async (req, res) => {
-  connectDb(async (db) => {
-    await db.collection('products').updateOne(
-      { _id: ObjectId(req.params.id) },
-      { $set: req.body }
-    );
-    const product = await db.collection('products').findOne({ _id: ObjectId(req.params.id) });
-    res.json(product);
-  });
+  const db = await connectDb();
+  await db.collection('products').updateOne(
+    { _id: ObjectId(req.params.id) },
+    { $set: req.body }
+  );
+  const product = await db.collection('products').findOne({ _id: ObjectId(req.params.id) });
+  res.json(product);
 });
 
 app.listen(port, function() {
