@@ -17,9 +17,13 @@ services:
     volumes:
       - './catalog/src:/app'
     links:
-      - mongo
+      - catalog-db
     environment:
-      DB_URL: mongodb://mongo:27017/catalog
+      DB_URL: mongodb://catalog-db:27017/catalog
+  catalog-db:
+    image: mongo
+    volumes:
+      - ./catalog/db:/data/db
   gateway:
     restart: always
     build:
@@ -30,5 +34,3 @@ services:
       - '8080:80'
     volumes:
       - './gateway/src:/app'
-  mongo:
-    image: mongo
