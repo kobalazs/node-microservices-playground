@@ -13,7 +13,7 @@ const fetch = async (url, method, data) => {
     console.error(error);
     return { error };
   }
-}
+};
 
 app.route('/').get((req, res) => res.json({ service: 'gateway' }));
 
