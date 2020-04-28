@@ -18,6 +18,6 @@ app.route('/clear').delete((req, res) => {
   return res.json(basket);
 });
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log('Server started on port: ' + port);
 });

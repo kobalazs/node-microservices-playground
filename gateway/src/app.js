@@ -37,6 +37,6 @@ app.route('/catalog/product/:id').patch(
   async (req, res) => res.json(await fetch(`http://catalog/product/${req.params.id}`, 'patch', req.body))
 );
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log('Server started on port: ' + port);
 });
