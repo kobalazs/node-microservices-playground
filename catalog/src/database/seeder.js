@@ -1,8 +1,8 @@
 const connect = require('./connect');
-const stock = require('./stock.json');
+const products = require('./products.json');
 
 connect(async (db) => {
-  const collection = db.collection('stock');
+  const collection = db.collection('products');
   await collection.deleteMany();
-  await collection.insertMany(stock);
+  await collection.insertMany(products);
 });

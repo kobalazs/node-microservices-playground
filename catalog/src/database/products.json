@@ -1,14 +1,14 @@
 [
   {
     "name": "Television",
-    "amount": 10
+    "price": 20
   },
   {
     "name": "Mobile phone",
-    "amount": 5
+    "price": 10
   },
   {
     "name": "Notebook",
-    "amount": 2
+    "price": 100
   }
 ]

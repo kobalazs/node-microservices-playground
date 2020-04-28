@@ -3,6 +3,7 @@ const axios = require('axios');
 
 const app = express();
 const port = 80;
+app.use(express.json());
 
 const fetch = async (url, method, data) => {
   try {
@@ -28,7 +29,13 @@ app.route('/basket/clear').delete(
 );
 
 app.route('/catalog').get(async (req, res) => res.json(await fetch('http://catalog')));
-app.route('/catalog/stock').get(async (req, res) => res.json(await fetch('http://catalog/stock')));
+app.route('/catalog/product').get(async (req, res) => res.json(await fetch('http://catalog/product')));
+app.route('/catalog/product/:id').get(
+  async (req, res) => res.json(await fetch(`http://catalog/product/${req.params.id}`))
+);
+app.route('/catalog/product/:id').patch(
+  async (req, res) => res.json(await fetch(`http://catalog/product/${req.params.id}`, 'patch', req.body))
+);
 
 app.listen(port, function() {
   console.log('Server started on port: ' + port);
