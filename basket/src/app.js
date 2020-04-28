@@ -1,10 +1,12 @@
 const express = require('express');
 const hydrator = require('./hydrator');
+const consumer = require('./consumer');
 
 const app = express();
 const port = 80;
 
 let basket = {};
+consumer();
 
 app.route('/').get((req, res) => res.json({ service: 'basket' }));
 

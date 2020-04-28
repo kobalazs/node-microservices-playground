@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "watch": "nodemon app.js",
-    "db:seed": "node database/seeder.js",
-    "queue-test": "node queue-test.js"
+    "db:seed": "node database/seeder.js"
   },
   "author": "",
   "license": "ISC",
