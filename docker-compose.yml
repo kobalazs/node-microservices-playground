@@ -6,8 +6,13 @@ services:
       context: .
       dockerfile: basket/Dockerfile
       target: dev
+    environment:
+      CACHE_HOST: basket-cache
+      CACHE_PORT: 6379
     volumes:
       - './basket/src:/app'
+  basket-cache:
+    image: redis:alpine
   catalog:
     restart: always
     build:

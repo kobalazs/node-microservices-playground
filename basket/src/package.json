@@ -5,11 +5,13 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "watch": "nodemon app.js"
+    "watch": "nodemon app.js",
+    "redis-test": "node redis-test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "redis": "^3.0.2"
   }
 }
