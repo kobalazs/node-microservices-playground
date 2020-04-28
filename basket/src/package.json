@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "watch": "nodemon app.js",
-    "redis-test": "node redis-test.js"
+    "watch": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
