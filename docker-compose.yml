@@ -6,11 +6,15 @@ services:
       context: .
       dockerfile: basket/Dockerfile
       target: dev
+    volumes:
+      - './basket/src:/app'
+    links:
+      - basket-cache
+      - event-bus
     environment:
       CACHE_HOST: basket-cache
       CACHE_PORT: 6379
-    volumes:
-      - './basket/src:/app'
+      EVENT_BUS_HOST: event-bus
   basket-cache:
     image: redis:alpine
   catalog:
@@ -23,12 +27,16 @@ services:
       - './catalog/src:/app'
     links:
       - catalog-db
+      - event-bus
     environment:
       DB_URL: mongodb://catalog-db:27017/catalog
+      EVENT_BUS_HOST: event-bus
   catalog-db:
     image: mongo
     volumes:
       - ./catalog/db:/data/db
+  event-bus:
+    image: rabbitmq
   gateway:
     restart: always
     build:

@@ -6,11 +6,13 @@
   "scripts": {
     "start": "node app.js",
     "watch": "nodemon app.js",
-    "db:seed": "node database/seeder.js"
+    "db:seed": "node database/seeder.js",
+    "queue-test": "node queue-test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.5.5",
     "express": "^4.17.1",
     "mongodb": "^3.5.6"
   }
