@@ -3,16 +3,19 @@ const cache = require('./cache');
 
 const queue = 'products';
 
-const getChannel = async () => {
+const getChannel = async (retryCount = 0) => {
   try {
     const connection = await amqplib.connect(`amqp://${process.env.EVENT_BUS_HOST}`);
+    console.log('Connected to event bus.');
     return Promise.resolve(connection.createChannel());
   } catch (error) {
-    console.error(error);
+    const retryTime = Math.floor(Math.exp(retryCount));
+    console.log(`Connection to event bus failed, retrying in ${retryTime} seconds...`);
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        getChannel().then(resolve).catch(reject);
-      }, 1000);
+        getChannel(retryCount + 1).then(resolve).catch(reject);
+      }, retryTime * 1000);
     });
   }
 };
