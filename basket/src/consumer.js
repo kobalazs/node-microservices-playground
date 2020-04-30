@@ -4,8 +4,17 @@ const cache = require('./cache');
 const queue = 'products';
 
 const getChannel = async () => {
-  const connection = await amqplib.connect(`amqp://${process.env.EVENT_BUS_HOST}`);
-  return Promise.resolve(connection.createChannel());
+  try {
+    const connection = await amqplib.connect(`amqp://${process.env.EVENT_BUS_HOST}`);
+    return Promise.resolve(connection.createChannel());
+  } catch (error) {
+    console.error(error);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        getChannel().then(resolve).catch(reject);
+      }, 1000);
+    });
+  }
 };
 
 module.exports = async () => {

@@ -7,7 +7,7 @@ services:
       target: dev
     volumes:
       - './basket/src:/app'
-    links:
+    depends_on:
       - basket-cache
       - event-bus
     environment:
@@ -23,7 +23,7 @@ services:
       target: dev
     volumes:
       - './catalog/src:/app'
-    links:
+    depends_on:
       - catalog-db
       - event-bus
     environment:
