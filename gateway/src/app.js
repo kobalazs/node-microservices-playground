@@ -5,37 +5,22 @@ const app = express();
 const port = 80;
 app.use(express.json());
 
-const fetch = async (url, method, data) => {
-  try {
-    const res = await axios.request({ url, method: method || 'get', data });
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    return { error };
-  }
+const proxyTo = async (url, req, res) => {
+  const serviceResponse = await axios.request({ url, method: req.method, data: req.body });
+  res.json(serviceResponse.data);
 };
 
 app.route('/').get((req, res) => res.json({ service: 'gateway' }));
 
-app.route('/basket').get(async (req, res) => res.json(await fetch('http://basket')));
-app.route('/basket/add/:id').post(
-  async (req, res) => res.json(await fetch(`http://basket/add/${req.params.id}`, 'post'))
-);
-app.route('/basket/show').get(
-  async (req, res) => res.json(await fetch('http://basket/show'))
-);
-app.route('/basket/clear').delete(
-  async (req, res) => res.json(await fetch('http://basket/clear', 'delete'))
-);
+app.route('/basket').get((req, res) => proxyTo('http://basket', req, res));
+app.route('/basket/set-item').patch((req, res) => proxyTo('http://basket/set-item', req, res));
+app.route('/basket/show').get((req, res) => proxyTo('http://basket/show', req, res));
+app.route('/basket/clear').delete(async (req, res) => proxyTo('http://basket/clear', req, res));
 
-app.route('/catalog').get(async (req, res) => res.json(await fetch('http://catalog')));
-app.route('/catalog/product').get(async (req, res) => res.json(await fetch('http://catalog/product')));
-app.route('/catalog/product/:id').get(
-  async (req, res) => res.json(await fetch(`http://catalog/product/${req.params.id}`))
-);
-app.route('/catalog/product/:id').patch(
-  async (req, res) => res.json(await fetch(`http://catalog/product/${req.params.id}`, 'patch', req.body))
-);
+app.route('/catalog').get(async (req, res) => proxyTo('http://catalog', req, res));
+app.route('/catalog/product').get(async (req, res) => proxyTo('http://catalog/product', req, res));
+app.route('/catalog/product/:id').get((req, res) => proxyTo(`http://catalog/product/${req.params.id}`, req, res));
+app.route('/catalog/product/:id').patch((req, res) => proxyTo(`http://catalog/product/${req.params.id}`, req, res));
 
 app.listen(port, () => {
   console.log('Server started on port: ' + port);

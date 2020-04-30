@@ -41,12 +41,22 @@
 			"response": []
 		},
 		{
-			"name": "/basket/add/:id",
+			"name": "/basket/set",
 			"request": {
-				"method": "POST",
-				"header": [],
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"productId\": \"5ea887f746c3c304af1723e0\", \"count\": 2 }"
+				},
 				"url": {
-					"raw": "http://localhost:8080/basket/add/5ea887f746c3c304af1723e0",
+					"raw": "http://localhost:8080/basket/set-item",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -54,8 +64,7 @@
 					"port": "8080",
 					"path": [
 						"basket",
-						"add",
-						"5ea887f746c3c304af1723e0"
+						"set-item"
 					]
 				}
 			},
@@ -146,7 +155,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/catalog/product/5ea828fea256dd00339cbcb1",
+					"raw": "http://localhost:8080/catalog/product/5ea887f746c3c304af1723e0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -155,7 +164,7 @@
 					"path": [
 						"catalog",
 						"product",
-						"5ea828fea256dd00339cbcb1"
+						"5ea887f746c3c304af1723e0"
 					]
 				}
 			},
@@ -174,10 +183,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"name\": \"Television\" }"
+					"raw": "{ \"name\": \"Smartphone\" }"
 				},
 				"url": {
-					"raw": "http://localhost:8080/catalog/product/5ea828fea256dd00339cbcb1",
+					"raw": "http://localhost:8080/catalog/product/5ea887f746c3c304af1723e0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -186,7 +195,7 @@
 					"path": [
 						"catalog",
 						"product",
-						"5ea828fea256dd00339cbcb1"
+						"5ea887f746c3c304af1723e0"
 					]
 				}
 			},

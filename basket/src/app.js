@@ -4,14 +4,15 @@ const consumer = require('./consumer');
 
 const app = express();
 const port = 80;
+app.use(express.json());
 
-let basket = {};
 consumer();
+let basket = {};
 
 app.route('/').get((req, res) => res.json({ service: 'basket' }));
 
-app.route('/add/:id').post((req, res) => {
-  basket[req.params.id] = (basket[req.params.id] || 0) + 1;
+app.route('/set-item').patch((req, res) => {
+  basket[req.body.productId] = req.body.count;
   return res.json(basket);
 });
 
