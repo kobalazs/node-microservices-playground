@@ -11,7 +11,7 @@ app.route('/').get((req, res) => res.json({ service: 'catalog' }));
 
 app.route('/product').get(async (req, res) => {
   const db = await connectDb();
-  const products = await db.collection('products').find({}).toArray()
+  const products = await db.collection('products').find({}).toArray();
   res.json(products);
 });
 

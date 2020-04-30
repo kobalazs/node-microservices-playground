@@ -6,7 +6,7 @@ module.exports = async () => new Promise(async (resolve, reject) => {
       process.env.DB_URL,
       { useNewUrlParser: true, useUnifiedTopology: true }
     );
-    resolve(connection.db(), connection);
+    resolve(connection.db());
   } catch (error) {
     reject(error);
   }

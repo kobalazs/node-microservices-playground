@@ -3,7 +3,6 @@ FROM node:carbon-jessie AS base
   WORKDIR /app
   COPY gateway/src/ ./
   EXPOSE 80
-  RUN npm install -g npm
 
 FROM base AS dev
 

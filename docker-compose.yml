@@ -1,7 +1,6 @@
 version: '3.4'
 services:
   basket:
-    restart: always
     build:
       context: .
       dockerfile: basket/Dockerfile
@@ -18,7 +17,6 @@ services:
   basket-cache:
     image: redis:alpine
   catalog:
-    restart: always
     build:
       context: .
       dockerfile: catalog/Dockerfile
@@ -34,11 +32,10 @@ services:
   catalog-db:
     image: mongo
     volumes:
-      - ./catalog/db:/data/db
+      - './catalog/db:/data/db'
   event-bus:
     image: rabbitmq
   gateway:
-    restart: always
     build:
       context: .
       dockerfile: gateway/Dockerfile
