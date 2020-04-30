@@ -1,16 +1,6 @@
 const axios = require('axios');
 const cache = require('./cache');
 
-const fetch = async (url, method, data) => {
-  try {
-    const res = await axios.request({ url, method: method || 'get', data });
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    return { error };
-  }
-};
-
 const getProduct = async (productId) => new Promise((resolve, reject) => {
   cache.get(productId, async (error, reply) => {
     if (error) {
@@ -22,7 +12,8 @@ const getProduct = async (productId) => new Promise((resolve, reject) => {
       product = JSON.parse(reply);
       console.log(`Product ${productId} loaded from cache`);
     } else {
-      product = await fetch(`http://catalog/product/${productId}`);
+      const serviceResponse = await axios.get(`http://catalog/product/${productId}`);
+      product = serviceResponse.data;
       console.log(`Product ${productId} loaded from service`);
       cache.set(productId, JSON.stringify(product));
     }
