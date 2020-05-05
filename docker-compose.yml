@@ -32,7 +32,7 @@ services:
   catalog-db:
     image: mongo
     volumes:
-      - './catalog/db:/data/db'
+      - '/data/db'
   event-bus:
     image: rabbitmq
   gateway:
