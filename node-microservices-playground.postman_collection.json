@@ -41,19 +41,19 @@
 			"response": []
 		},
 		{
-			"name": "/basket/set",
+			"name": "/basket/set-item",
 			"request": {
 				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"productId\": \"5ea887f746c3c304af1723e0\", \"count\": 2 }"
+					"raw": "{ \"productId\": \"5eb2673293ca1900a371c7c1\", \"count\": 21 }"
 				},
 				"url": {
 					"raw": "http://localhost:8080/basket/set-item",
@@ -186,7 +186,7 @@
 					"raw": "{ \"name\": \"Smartphone\" }"
 				},
 				"url": {
-					"raw": "http://localhost:8080/catalog/product/5ea887f746c3c304af1723e0",
+					"raw": "http://localhost:8080/catalog/product/5eb2673293ca1900a371c7c1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -195,7 +195,7 @@
 					"path": [
 						"catalog",
 						"product",
-						"5ea887f746c3c304af1723e0"
+						"5eb2673293ca1900a371c7c1"
 					]
 				}
 			},

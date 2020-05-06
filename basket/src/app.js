@@ -13,7 +13,7 @@ app.route('/').get((req, res) => res.json({ service: 'basket' }));
 
 app.route('/set-item').patch((req, res) => {
   basket[req.body.productId] = req.body.count;
-  return res.json(basket);
+  res.json(basket);
 });
 
 app.route('/show').get(async (req, res) => {
@@ -23,7 +23,7 @@ app.route('/show').get(async (req, res) => {
 
 app.route('/clear').delete((req, res) => {
   basket = {};
-  return res.json(basket);
+  res.json(basket);
 });
 
 app.listen(port, () => {

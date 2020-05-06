@@ -13,7 +13,7 @@ services:
     environment:
       CACHE_HOST: basket-cache
       CACHE_PORT: 6379
-      EVENT_BUS_HOST: event-bus
+      EVENT_BUS_URL: amqp://event-bus
   basket-cache:
     image: redis:alpine
   catalog:
@@ -28,7 +28,7 @@ services:
       - event-bus
     environment:
       DB_URL: mongodb://catalog-db:27017/catalog
-      EVENT_BUS_HOST: event-bus
+      EVENT_BUS_URL: amqp://event-bus
   catalog-db:
     image: mongo
     volumes:

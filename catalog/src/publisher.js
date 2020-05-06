@@ -3,7 +3,7 @@ const amqplib = require('amqplib');
 const queue = 'products';
 
 const getChannel = async () => {
-  const connection = await amqplib.connect(`amqp://${process.env.EVENT_BUS_HOST}`);
+  const connection = await amqplib.connect(process.env.EVENT_BUS_URL);
   return Promise.resolve(connection.createChannel());
 };
 
