@@ -1,12 +1,9 @@
 const express = require('express');
-const hydrator = require('./hydrator');
-const consumer = require('./consumer');
 
 const app = express();
 const port = 80;
 app.use(express.json());
 
-consumer();
 let basket = {};
 
 app.route('/').get((req, res) => res.json({ service: 'basket' }));
@@ -17,8 +14,7 @@ app.route('/set-item').patch((req, res) => {
 });
 
 app.route('/show').get(async (req, res) => {
-  const hydratedBasket = await hydrator(basket);
-  res.json(hydratedBasket)
+  res.json(basket);
 });
 
 app.route('/clear').delete((req, res) => {
