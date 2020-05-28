@@ -4,7 +4,7 @@ const queueName = 'products';
 
 const getChannel = async () => {
   const connection = await amqplib.connect(process.env.EVENT_BUS_URL);
-  return Promise.resolve(connection.createChannel());
+  return connection.createChannel();
 };
 
 module.exports = async product => {

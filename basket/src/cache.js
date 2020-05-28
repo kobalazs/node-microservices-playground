@@ -1,4 +1,5 @@
 const redis = require('redis');
+const util = require('util');
 
 const cache = redis.createClient({
   host: process.env.CACHE_HOST,
@@ -8,5 +9,7 @@ const cache = redis.createClient({
 cache.on('error', (error) => {
   console.error(error);
 });
+
+cache.get = util.promisify(cache.get);
 
 module.exports = cache;

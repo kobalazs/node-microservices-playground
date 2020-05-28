@@ -7,7 +7,7 @@ const getChannel = async (retryCount = 0) => {
   try {
     const connection = await amqplib.connect(process.env.EVENT_BUS_URL);
     console.log('Connected to event bus.');
-    return Promise.resolve(connection.createChannel());
+    return connection.createChannel();
   } catch (error) {
     const retryTime = Math.floor(Math.exp(retryCount));
     console.log(`Connection to event bus failed, retrying in ${retryTime} seconds...`);

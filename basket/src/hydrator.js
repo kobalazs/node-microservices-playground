@@ -1,33 +1,22 @@
 const axios = require('axios');
 const cache = require('./cache');
 
-const getProduct = async (productId) => new Promise((resolve, reject) => {
-  cache.get(productId, async (error, reply) => {
-    if (error) {
-      reject(error);
-      return;
-    }
-    let product;
-    if (reply) {
-      product = JSON.parse(reply);
-      console.log(`Product ${productId} loaded from cache`);
-    } else {
-      const serviceResponse = await axios.get(`http://catalog/product/${productId}`);
-      product = serviceResponse.data;
-      console.log(`Product ${productId} loaded from service`);
-      cache.set(productId, JSON.stringify(product));
-    }
-    resolve(product);
-  });
-});
+const getProduct = async (productId) => {
+  const reply = await cache.get(productId);
+  if (reply) {
+    console.log(`Product ${productId} loaded from cache`);
+    return JSON.parse(reply);
+  }
+  const serviceResponse = await axios.get(`http://catalog/product/${productId}`);
+  const product = serviceResponse.data;
+  console.log(`Product ${productId} loaded from service`);
+  cache.set(productId, JSON.stringify(product));
+  return product;
+};
 
 const hydrateItem = async (productId, count) => {
-  try {
-    const product = await getProduct(productId);
-    return Promise.resolve({ product, count });
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  const product = await getProduct(productId);
+  return { product, count };
 };
 
 module.exports = async basket => Promise.all(
