@@ -1,7 +1,7 @@
 const amqplib = require('amqplib');
 const cache = require('./cache');
 
-const queue = 'products';
+const queueName = 'products';
 
 const getChannel = async (retryCount = 0) => {
   try {
@@ -22,14 +22,14 @@ const getChannel = async (retryCount = 0) => {
 
 module.exports = async () => {
   const channel = await getChannel();
-  await channel.assertQueue(queue);
-  channel.consume(queue, (message) => {
+  await channel.assertQueue(queueName);
+  channel.consume(queueName, (message) => {
     if (message === null) {
       return;
     }
     const product = JSON.parse(message.content.toString());
-    console.log(`Consumed product ${product._id}`);
     cache.set(product._id, JSON.stringify(product));
     channel.ack(message);
+    console.log(`Consumed product ${product._id}`);
   });
 };
