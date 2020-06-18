@@ -1,5 +1,16 @@
 version: '3.4'
 services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      target: dev
+    volumes:
+      - './frontend/src:/app'
+    ports:
+      - '8080:8080'
+    environment:
+      VUE_APP_API_ENDPOINT: http://localhost:8081
   basket:
     build:
       context: .
@@ -41,6 +52,6 @@ services:
       dockerfile: gateway/Dockerfile
       target: dev
     ports:
-      - '8080:80'
+      - '8081:80'
     volumes:
       - './gateway/src:/app'
