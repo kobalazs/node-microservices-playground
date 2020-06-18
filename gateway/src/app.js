@@ -1,9 +1,11 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 const app = express();
 const port = 80;
 app.use(express.json());
+app.use(cors());
 
 const proxyTo = async (url, req, res) => {
   const serviceResponse = await axios.request({ url, method: req.method, data: req.body });
