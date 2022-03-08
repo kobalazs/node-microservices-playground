@@ -1,4 +1,4 @@
-FROM node:carbon-jessie AS base
+FROM node:16-alpine AS base
 
   WORKDIR /app
   COPY gateway/src/ ./
